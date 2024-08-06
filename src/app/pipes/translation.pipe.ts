@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'LangTranslation'
+  name: 'langTranslation'
 })
 export class TranslationPipe implements PipeTransform {
 
@@ -14,8 +14,8 @@ export class TranslationPipe implements PipeTransform {
       name:"نيره"
     }
   }
-  transform(value: string,langs:'English'|'Arabic'): string {
-    return this.translation[langs].greeting || value;
+  transform(value: string,langs:'English'|'Arabic',property :'greeting'|'name'): string {
+    return (this.translation[langs] ||'')[property] || value;
   }
 
 }
