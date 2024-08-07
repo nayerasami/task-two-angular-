@@ -1,21 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { TranslateService } from '../services/translate.service';
 @Pipe({
-  name: 'langTranslation'
+  name: 'langTranslation',
+  pure:false
 })
 export class TranslationPipe implements PipeTransform {
 
-  private translation = {
-    English: {
-      greeting: "Hello",
-      name:"Nayera"
-    }, Arabic: {
-      greeting: "مرحبا",
-      name:"نيره"
-    }
-  }
-  transform(value: string,langs:'English'|'Arabic',property :'greeting'|'name'): string {
-    return (this.translation[langs] ||'')[property] || value;
-  }
+  constructor(private translateService :TranslateService){}
+  private translation= this.translateService.translation
 
+
+  transform(value: string): string {
+    const currentLang = this.translateService.currentLanguage
+    console.log("currentLannnn pipe",currentLang)
+    return this.translation[currentLang]?.[value] || value;
+  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from './services/translate.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'task-two';
-  greeting:string ='مرحبا'
+
+  constructor(private translateService: TranslateService) { }
+  get currentLang(): 'English' | 'Arabic' {
+    return this.translateService.currentLanguage;
+  }
+
+
+  translate() {
+    const newLang = this.currentLang === 'English' ? 'Arabic' : 'English';
+    this.translateService.currentLanguage = newLang
+    console.log(newLang, "newLang")
+
+  }
+
+
+
 }
